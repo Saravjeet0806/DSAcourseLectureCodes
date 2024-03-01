@@ -34,9 +34,10 @@ public:
         if (word.length() == 0)
         {
             root->isTerminal = true;
+            return;
         }
         // assume word is in capslock
-        int index = word[0];
+        int index = word[0] - 'A';
         TrieNode *child;
         // present , aage badho
         if (root->children[index] != NULL)
@@ -57,11 +58,46 @@ public:
     {
         insertUtil(root, word);
     }
+    bool searchUtil(TrieNode *root, string word)
+    {
+        // base case
+        if (word.length() == 0)
+        {
+            return root->isTerminal;
+        }
+        int index = word[0] - 'A';
+        TrieNode *child;
+
+        // present
+        if (root->children[index] != NULL) // agar present hai to aage badho
+        {
+            child = root->children[index];
+        }
+        else
+        { // absent
+            return false;
+        }
+
+        // recursion call
+        return searchUtil(child, word.substr(1));
+    }
+
+    bool searchWord(string word)
+    {
+        return searchUtil(root, word);
+    }
 };
 
 int main()
 {
     Trie *t = new Trie();
-    t->insertWord("abcd");
+    // t->insertWord("abcd");
+    // cout<<"present or not"<<t->searchWord("abcde")<<endl;   //0 false
+    //  cout<<"present or not"<<t->searchWord("abcd")<<endl;   //1 true
+
+    t->insertWord("ARM");
+    t->insertWord("DO");
+    t->insertWord("TIME");
+    cout << "present or not  " << t->searchWord("TIM") << endl;
     return 0;
 }
