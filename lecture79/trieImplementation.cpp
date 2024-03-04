@@ -86,6 +86,86 @@ public:
     {
         return searchUtil(root, word);
     }
+    bool removeUtil(TrieNode *root, string word)
+    {
+        // Base case
+        if (word.length() == 0)
+        {
+            if (root->isTerminal)
+            {
+                root->isTerminal = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // Finding index through mapping
+        int index = word[0] - 'A';
+        TrieNode *child;
+
+        if (root->children[index] != NULL)
+        {
+            // Present
+            child = root->children[index];
+        }
+        else
+        {
+            // Absent
+            return false;
+        }
+
+        return removeUtil(child, word.substr(1));
+    }
+
+    bool remove(string word)
+    {
+        return removeUtil(root, word);
+    }
+
+    bool eraseUtil(TrieNode *root, string word)
+    {
+        // Base case
+        if (word.length() == 0)
+        {
+            if (root->isTerminal)
+            {
+                root->isTerminal = false;
+                delete root;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // Finding index through mapping
+        int index = word[0] - 'A';
+        TrieNode *child;
+
+        if (root->children[index] != NULL)
+        {
+            // Present
+            child = root->children[index];
+        }
+        else
+        {
+            // Absent
+            return false;
+        }
+
+        bool ans = eraseUtil(child, word.substr(1));
+        delete child;
+        return ans;
+    }
+
+    bool erase(string word)
+    {
+        return eraseUtil(root, word);
+    }
 };
 
 int main()
