@@ -49,3 +49,39 @@ string cycleDetection (vector<vector<int>>& edges, int n, int m)
     }
     return "No";
 }
+
+
+//geeksforgeeks
+bool bfs(int start, vector<int> adj[], unordered_set<int>& visited) {
+    queue<pair<int, int>> q; // (current_node, parent_node)
+    q.push({start, -1});
+    visited.insert(start);
+
+    while (!q.empty()) {
+        int current = q.front().first;
+        int parent = q.front().second;
+        q.pop();
+
+        for (int neighbor : adj[current]) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                q.push({neighbor, current});
+            } else if (neighbor != parent) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool isCycle(int V, vector<int> adj[]) {
+    unordered_set<int> visited;
+    for (int vertex = 0; vertex < V; ++vertex) {
+        if (visited.find(vertex) == visited.end()) {
+            if (bfs(vertex, adj, visited)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
