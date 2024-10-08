@@ -1,3 +1,4 @@
+//tabulation
 class Solution {
 public:
     int minPathSum(vector<vector<int>>& grid) {
@@ -25,3 +26,25 @@ public:
         return dp[n-1][m-1];
     }
 };
+
+
+//memoization 
+int minSumPathUtil(int i, int j, vector<vector<int>> &matrix, vector<vector<int>> &dp) {
+  
+    if (i == 0 && j == 0)
+        return matrix[0][0]; 
+    if (i < 0 || j < 0)
+        return INT_MAX;
+    if (dp[i][j] != -1)
+        return dp[i][j]; 
+    int up = matrix[i][j] + minSumPathUtil(i - 1, j, matrix, dp);
+    int left = matrix[i][j] + minSumPathUtil(i, j - 1, matrix, dp);
+
+    return dp[i][j] = min(up, left);
+}
+
+
+int minSumPath(int n, int m, vector<vector<int>> &matrix) {
+    vector<vector<int>> dp(n, vector<int>(m, -1)); // DP table to memoize results
+    return minSumPathUtil(n - 1, m - 1, matrix, dp); // Start from the bottom-right corner
+}
