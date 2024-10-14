@@ -39,3 +39,31 @@ public:
        return dp[0][0] ;
     }
 };
+
+//space optimization 
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size();
+        vector<int> front(n, 0); // Represents the previous row
+        vector<int> cur(n, 0);   // Represents the current row
+
+        for (int j = 0; j < n; j++) {
+            front[j] = triangle[n - 1][j];
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = i; j >= 0; j--) {
+                int down = triangle[i][j] + front[j];
+                int diagonal = triangle[i][j] + front[j + 1];
+
+                // Store the minimum of the two possible paths in the current
+                // row
+                cur[j] = min(down, diagonal);
+            }
+            // Update the front array with the values from the current row
+            front = cur;
+        }
+        return front[0];
+    }
+};
