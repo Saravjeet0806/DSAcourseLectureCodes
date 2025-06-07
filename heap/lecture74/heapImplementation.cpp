@@ -25,7 +25,7 @@ public:
             if (arr[parent] < arr[index])
             {
                 swap(arr[parent], arr[index]);
-                index = parent;
+                index = parent; //index is now parent index
             }
             else
             {
@@ -50,11 +50,11 @@ public:
             return;
         }
         // 1st step
-        arr[1] = arr[size];
+        arr[1] = arr[size]; //replace the root with the last element
         // 2nd step
-        size--;
+        size--; //reduce the size of heap
         // 3rd step
-        int i = 1;
+        int i = 1; //start from the root
         while (i < size)
         {
             int leftInd = 2 * i;
