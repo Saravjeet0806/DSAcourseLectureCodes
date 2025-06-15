@@ -1,4 +1,4 @@
-lass Solution{
+class Solution{
     public:
     // zerobased indexing
     void heapify(vector<int>& arr, int n, int i)

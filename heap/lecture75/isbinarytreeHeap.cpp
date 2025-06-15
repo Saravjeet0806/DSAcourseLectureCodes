@@ -1,3 +1,5 @@
+ // question link - https://www.geeksforgeeks.org/problems/is-binary-tree-heap/1
+
 class Solution {
     private:
    int countNodes(struct Node * root){
