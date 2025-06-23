@@ -1,3 +1,5 @@
+// https://www.naukri.com/code360/problems/frog-jump_3621012?leftPanelTabValue=SUBMISSION
+
 // Question Explanation (Frog Jump Minimum Energy)
 // 📌 Problem Statement:
 // A frog is on the first stone (0th index) and wants to reach the last stone (n-1 index).
@@ -13,6 +15,7 @@
 
 
 
+//top down===memoization
 
 class Solution
 {
