@@ -101,3 +101,42 @@ public:
         return dp[n - 1][sum];
     }
 };
+
+//space optimization code 
+class Solution
+{
+public:
+    bool isSubsetSum(vector<int> &arr, int sum)
+    {
+        int n = arr.size();
+        vector<bool> prev(sum + 1, false);
+
+        prev[0] = true; // Sum 0 is always possible with empty subset
+
+        if (arr[0] <= sum)
+        {
+            prev[arr[0]] = true;
+        }
+
+        for (int ind = 1; ind < n; ind++)
+        {
+            vector<bool> curr(sum + 1, false);
+            curr[0] = true;
+
+            for (int j = 1; j <= sum; j++)
+            {
+                bool notTaken = prev[j];
+                bool taken = false;
+                if (arr[ind] <= j)
+                {
+                    taken = prev[j - arr[ind]];
+                }
+                curr[j] = notTaken || taken;
+            }
+
+            prev = curr;
+        }
+
+        return prev[sum];
+    }
+};
