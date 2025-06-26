@@ -47,12 +47,15 @@ class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>>dp(n, vector<int>(amount+1, 1e9));
+        vector<vector<int>>dp(n, vector<int>(amount+1, 0));
 
          // Base Case: Only using the first coin
         for (int amt = 0; amt <= amount; amt++) {
             if (amt % coins[0] == 0) {
                 dp[0][amt] = amt / coins[0];
+            }
+            else{
+                dp[0][amt] = 1e9;
             }
         }
         // Fill the DP table
