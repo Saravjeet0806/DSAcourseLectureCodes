@@ -72,3 +72,16 @@ public:
         return dp[n][m]; // Return the length of the Longest Common Subsequence
     }
 };
+
+// Why Do We Shift (Right-Shift or Index Shift)?
+// We shift the indices to avoid dealing with negative indices and to simplify base cases.
+
+// For example:
+
+// If you didn't shift, your loop would have to handle dp[0][0] when comparing text1[-1] and text2[-1] (which is invalid).
+
+// Instead, by shifting, you use:
+
+// dp[i][j] to represent the LCS of the first i characters of text1 and the first j characters of text2.
+
+// This lets you access text1[i-1] and text2[j-1], which are valid indices.
