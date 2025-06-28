@@ -48,7 +48,7 @@ public:
     int longestCommonSubsequence(string text1, string text2) {
         int n = text1.length();
         int m = text2.length();
-        int l = max(n, m);
+        
         vector<vector<int>> dp(n + 1, vector<int>(m + 1, -1)); // Create a DP table //right shift so that there are no negative integers..
 
         // Initialize the base cases
