@@ -13,7 +13,7 @@ int findSecondLargest(int n, vector<int> &arr)
             large = arr[i];
         }
  
-        else if (arr[i] > second_large && arr[i] != large) 
+        else if (arr[i] > second_large && arr[i] != large)                    
         {
             second_large = arr[i];
         }
