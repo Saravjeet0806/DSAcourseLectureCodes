@@ -22,3 +22,14 @@ class Solution {
         return res;
     }
 };
+
+//The substrings that contributed are:
+
+// From start = 0 to end = 2 → "abc", "abca", "abcab", "abcabc" → 4
+
+// From start = 1 to end = 3 → "bca", "bcab", "bcabc" → 3
+
+// From start = 2 to end = 4 → "cab", "cabc" → 2
+
+// From start = 3 to end = 5 → "abc" → 1
+// Total = 4 + 3 + 2 + 1 = 10
