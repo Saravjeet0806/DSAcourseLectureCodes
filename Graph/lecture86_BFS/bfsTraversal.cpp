@@ -9,9 +9,7 @@ void traversal(unordered_map<int, list<int> > &adjList, unordered_map<int, bool>
     while(!Q.empty()) {
         int frontVal = Q.front();
         Q.pop();
-        visited[frontVal] = true;
         answer.push_back(frontVal);
-
         for(auto i : adjList[frontVal]) {
             if(!visited[i]) {
                 Q.push(i);

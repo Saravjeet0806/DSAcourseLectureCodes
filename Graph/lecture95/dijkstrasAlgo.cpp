@@ -1,43 +1,33 @@
-#include <bits/stdc++.h>
-vector<int> dijkstra(vector<vector<int>> &vec, int vertices, int edges, int source)
+class Solution
 {
-    // Write your code here.
-    unordered_map<int, list<pair<int, int>>> adj;
-    // making adjajency list
-    for (int i = 0; i < edges; i++)
+	public:
+	//Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-        int u = vec[i][0];
-        int v = vec[i][1];
-        int w = vec[i][2];
-        adj[u].push_back(make_pair(v, w));
-        adj[v].push_back(make_pair(u, w));
-    }
-
-    // declaring set and dist datastructure
-    set<pair<int, int>> st;
-    vector<int> dist(vertices, INT_MAX);
-    dist[source] = 0;
-    st.insert(make_pair(0, source));
-    while (!st.empty())
-    {
-        auto top = *(st.begin());
-        int nodedist = top.first;
-        int node = top.second;
-        st.erase(st.begin());
-        for (auto it : adj[node])
-        {
-            int newdist = nodedist + it.second;
-            if (newdist < dist[it.first])
-            {
-                auto record = st.find(make_pair(dist[it.first], it.first));
-                if (record != st.end())
-                {
-                    st.erase(record);
-                }
-                dist[it.first] = newdist;
-                st.insert(make_pair(newdist, it.first));
+        set<pair<int, int>>st;
+        vector<int>dist(V, 1e9);
+        st.insert({0, S});
+        dist[S]=0;
+        
+        while(!st.empty()){
+            auto it = *(st.begin());
+            int node = it.second;
+            int dis = it.first;  //st = (dist, node)
+            st.erase(it);
+            
+            for(auto it : adj[node]){
+                int adjNode = it[0]; 
+                int edgW = it[1]; 
+                
+                 if(dis + edgW < dist[adjNode]) {
+                    if(dist[adjNode] != 1e9) 
+                        st.erase({dist[adjNode], adjNode}); 
+                        dist[adjNode] = dis + edgW; 
+                        st.insert({dist[adjNode], adjNode}); 
+                 }
             }
         }
+         return dist; 
     }
-    return dist;
-}
+};
