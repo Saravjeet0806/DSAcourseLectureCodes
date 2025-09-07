@@ -43,3 +43,49 @@ public:
        
     }
 };
+
+//using dfs 
+class Solution {
+public:
+    bool dfs(int node, vector<vector<int>>& adj, vector<int>& visited, vector<int>& dfsVisited) {
+        visited[node] = 1;
+        dfsVisited[node] = 1;  // mark this node in the recursion stack
+
+        for (auto neighbor : adj[node]) {
+            if (!visited[neighbor]) {
+                if (dfs(neighbor, adj, visited, dfsVisited)) {
+                    return true;  // cycle found
+                }
+            }
+            else if (dfsVisited[neighbor]) {
+                return true; // back edge → cycle
+            }
+        }
+
+        dfsVisited[node] = 0; // backtrack
+        return false;
+    }
+
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        // Step 1: build adjacency list
+        vector<vector<int>> adj(numCourses);
+        for (auto &p : prerequisites) {
+            adj[p[1]].push_back(p[0]);  // edge: prereq → course
+        }
+
+        // Step 2: visited + recursion stack arrays
+        vector<int> visited(numCourses, 0);
+        vector<int> dfsVisited(numCourses, 0);
+
+        // Step 3: check each component
+        for (int i = 0; i < numCourses; i++) {
+            if (!visited[i]) {
+                if (dfs(i, adj, visited, dfsVisited)) {
+                    return false; // cycle → cannot finish
+                }
+            }
+        }
+
+        return true; // no cycle → all courses can be finished
+    }
+};
