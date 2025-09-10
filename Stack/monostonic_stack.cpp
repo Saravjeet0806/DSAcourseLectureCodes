@@ -102,3 +102,9 @@ int main() {
 
     return 0;
 }
+
+https://www.geeksforgeeks.org/problems/immediate-smaller-element1142/1
+https://www.geeksforgeeks.org/problems/previous-smaller-element/1
+
+https://www.geeksforgeeks.org/problems/previous-greater-element/1
+https://www.geeksforgeeks.org/problems/next-larger-element-1587115620/1
