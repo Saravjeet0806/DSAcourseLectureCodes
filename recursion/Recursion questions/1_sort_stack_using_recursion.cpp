@@ -1,5 +1,5 @@
 void sortedInsert(stack<int> &s, int x) {
-    if (s.empty() || x > s.top()) {
+    if (s.empty() || x <= s.top()) {
         s.push(x);
         return;
     }
