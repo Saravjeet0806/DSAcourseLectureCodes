@@ -22,6 +22,8 @@ class Solution {
     }
 }; 
 
+
+
  
  
                        ""
@@ -33,3 +35,34 @@ class Solution {
       "000"  "001"   "010"    "100"
                              \
                              "101"
+
+
+
+
+ class Solution {
+  public:
+    void solve(int n, string &temp, vector<string> &ans) {
+        if (n == 0) {
+            ans.push_back(temp);
+            return;
+        }
+
+        // try '0' first for ascending order
+        temp.push_back('0');
+        solve(n-1, temp, ans);
+        temp.pop_back(); //used when temp is passed as a reference 
+
+        // then try '1'
+        temp.push_back('1');
+        solve(n-1, temp, ans);
+        temp.pop_back();
+    }
+
+    vector<string> binstr(int n) {
+        vector<string> ans;
+        string temp = "";
+        solve(n, temp, ans);
+        return ans;
+    }
+};
+                            
