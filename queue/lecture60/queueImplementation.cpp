@@ -54,3 +54,80 @@ public:
         }
     }
 };
+
+
+//better
+#include <bits/stdc++.h>
+using namespace std;
+
+class Queue {
+private:
+    vector<int> arr;
+    int start, end, currSize, maxSize;
+
+public:
+    // Constructor
+    Queue(int size) : arr(size), start(-1), end(-1), currSize(0), maxSize(size) {}
+
+    bool isEmpty() const {
+        return currSize == 0;
+    }
+
+    bool isFull() const {
+        return currSize == maxSize;
+    }
+
+    void enqueue(int val) {
+        if (isFull()) {
+            throw runtime_error("Queue is full");
+        }
+        if (start == -1) {   // first element
+            start = 0;
+        }
+        end = (end + 1) % maxSize;
+        arr[end] = val;
+        currSize++;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            throw runtime_error("Queue is empty");
+        }
+        int result = arr[start];
+        if (currSize == 1) { 
+            start = -1;
+            end = -1;
+        } else {
+            start = (start + 1) % maxSize;
+        }
+        currSize--;
+        return result;
+    }
+
+    int front() const {
+        if (isEmpty()) {
+            throw runtime_error("Queue is empty");
+        }
+        return arr[start];
+    }
+
+    int size() const {
+        return currSize;
+    }
+};
+
+// Example usage
+int main() {
+    Queue q(5);
+
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+
+    cout << "Front = " << q.front() << "\n";
+    cout << "Dequeued = " << q.dequeue() << "\n";
+    cout << "Front after dequeue = " << q.front() << "\n";
+    cout << "Size = " << q.size() << "\n";
+
+    return 0;
+}
