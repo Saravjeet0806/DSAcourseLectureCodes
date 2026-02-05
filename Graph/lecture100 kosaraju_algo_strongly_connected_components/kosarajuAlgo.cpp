@@ -75,3 +75,63 @@ int stronglyConnectedComponents(int v, vector<vector<int>> &edges)
     }
     return count;
 }
+
+https://www.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/1
+class Solution {
+  public:
+    void dfs1(int node, vector<int>&vis, vector<vector<int>>&adj, stack<int>&st){
+        vis[node]=1;
+        
+        for(auto it : adj[node]){
+            if(!vis[it]){
+                dfs1(it, vis, adj, st);
+            }
+        }
+        st.push(node);
+    }
+    
+    void dfs2(int node, vector<int>&vis, vector<vector<int>>&transpose){
+        vis[node]=1;
+        for(auto it : transpose[node]){
+            if(!vis[it]){
+                dfs2(it, vis, transpose);
+            }
+        }
+    }
+    int kosaraju(vector<vector<int>> &adj) {
+        int n = adj.size();
+        vector<int>vis(n, 0);
+        stack<int>st;
+        
+        for(int i=0; i<n; i++){
+            if(!vis[i]){
+                dfs1(i, vis, adj, st);
+            }
+        }
+        
+        
+        vector<vector<int>>transpose(n);
+        
+        for(int i=0; i<n; i++){
+            for(auto v : adj[i]){
+                transpose[v].push_back(i);
+            }
+        }
+        
+        fill(vis.begin(), vis.end(), 0); //reset vis
+        
+        int scc=0;
+        
+        while(!st.empty()){
+            int node = st.top();
+            st.pop();
+            
+            if(!vis[node]){
+                dfs2(node, vis, transpose);
+                scc++;
+            }
+        }
+
+        return scc;
+    }
+};
