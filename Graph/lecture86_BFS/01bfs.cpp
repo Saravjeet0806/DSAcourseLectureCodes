@@ -37,3 +37,6 @@ void zeroOneBFS(int src, int n, vector<vector<pair<int, int>>>& adj, vector<int>
         }
     }
 }
+
+
+// The 0-1 BFS algorithm computes the shortest paths in a graph where edge weights are exactly 0 or 1 in O(V + E) time. It uses a double-ended queue (deque):Push 0-weight edges to the front (high priority).Push 1-weight edges to the back (low priority).
